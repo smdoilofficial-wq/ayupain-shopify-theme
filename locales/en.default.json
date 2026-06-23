@@ -1,0 +1,36 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Search for relief...",
+      "submit": "Search",
+      "no_results": "No results found for tag"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "add_to_cart": "Add to Cart",
+      "buy_now": "Order Now (COD Available)",
+      "empty": "Your cart is empty. Add AYUPAIN™ to begin your relief journey!",
+      "checkout": "Proceed to Checkout",
+      "subtotal": "Subtotal",
+      "free_shipping_unlocked": "Congratulations! You've unlocked FREE Shipping! 🚚",
+      "free_shipping_locked": "Add only {{ amount }} more for FREE Shipping!",
+      "whatsapp_order": "Order via WhatsApp"
+    },
+    "product": {
+      "viewers_count": "people are viewing this product right now",
+      "urgency_text": "Hurry! Offer ends in",
+      "stock_left": "Only {{ count }} bottles left in stock! Selling out fast.",
+      "quantity": "Quantity",
+      "guarantee": "Ayurvedic Guarantee",
+      "cod_badge": "Cash on Delivery Available",
+      "reviews_rating": "Average Rating: {{ rating }} / 5 based on 478 reviews",
+      "bundle_save": "Save {{ discount }} on this pack"
+    },
+    "newsletter": {
+      "title": "Subscribe for Natural Tips & Offers",
+      "placeholder": "Enter your email",
+      "button": "Join Now",
+      "success": "Thank you! Check your inbox for your 10% discount code."
+    }
+  }
+}

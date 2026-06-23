@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge_text": "🏆 India's Leading Ayurvedic Pain Oil",
+        "title": "Natural Relief For Joint, Knee & Back Pain",
+        "subtitle": "Powerful Ayurvedic ingredients designed to support mobility, comfort and daily movement."
+      }
+    },
+    "pain-conditions": {
+      "type": "pain-conditions",
+      "settings": {
+        "tag_text": "Targeted Relief",
+        "title": "Conditions We Help You Relieve"
+      }
+    },
+    "why-ayupain": {
+      "type": "why-ayupain",
+      "settings": {
+        "tag_text": "Science of Recovery",
+        "title": "Why Choose AYUPAIN™"
+      }
+    },
+    "ingredient-showcase": {
+      "type": "ingredient-showcase",
+      "settings": {
+        "tag_text": "Pure Actives",
+        "title": "The Power of Ayurvedic Actives"
+      }
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "settings": {
+        "tag_text": "Application Guide",
+        "title": "3 Steps to Pain-Free Movement"
+      }
+    },
+    "key-benefits": {
+      "type": "key-benefits",
+      "settings": {
+        "tag_text": "Long-Term Benefits",
+        "title": "Key Health Benefits of AYUPAIN™"
+      }
+    },
+    "before-after": {
+      "type": "before-after",
+      "settings": {
+        "tag_text": "Proven Results",
+        "title": "Visible Reductions in Joint Swelling"
+      }
+    },
+    "video-testimonials": {
+      "type": "video-testimonials",
+      "settings": {
+        "tag_text": "Video Reviews",
+        "title": "Real Stories, Real Relief"
+      }
+    },
+    "customer-reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "tag_text": "Verified Feedback",
+        "title": "What 10,000+ Happy Customers Say"
+      }
+    },
+    "social-proof": {
+      "type": "social-proof",
+      "settings": {
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
+    },
+    "expert-recommendation": {
+      "type": "expert-recommendation",
+      "settings": {
+        "tag_text": "Medical Endorsement"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "tag_text": "Got Questions?",
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "offer_tag": "Limited Period Offer",
+        "title": "Unlock 10% Off Your First Order"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "pain-conditions",
+    "why-ayupain",
+    "ingredient-showcase",
+    "how-it-works",
+    "key-benefits",
+    "before-after",
+    "video-testimonials",
+    "customer-reviews",
+    "social-proof",
+    "expert-recommendation",
+    "faq",
+    "newsletter"
+  ]
+}

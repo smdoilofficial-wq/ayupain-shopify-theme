@@ -1,0 +1,360 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AYUPAIN Premium Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Antigravity Premium Designs",
+    "theme_documentation_url": "https://ayupain.com/docs",
+    "theme_support_url": "https://ayupain.com/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Identity Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color (Brand)",
+        "default": "#0F766E"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary Color (Leaf Green)",
+        "default": "#22C55E"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color (Amber Gold)",
+        "default": "#F59E0B"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "Success Color",
+        "default": "#16A34A"
+      },
+      {
+        "type": "header",
+        "content": "Text & Background Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Primary Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_background_light",
+        "label": "Light Background",
+        "default": "#F8FAFC"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary Text",
+        "default": "#111827"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted Text",
+        "default": "#4B5563"
+      },
+      {
+        "type": "header",
+        "content": "Structure Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_header_bg",
+        "label": "Header Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_bg",
+        "label": "Footer Background",
+        "default": "#0B3D39"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_text",
+        "label": "Footer Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_button_bg",
+        "label": "Button Background",
+        "default": "#0F766E"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_button_hover",
+        "label": "Button Hover Background",
+        "default": "#0D5C56"
+      },
+      {
+        "type": "header",
+        "content": "Gradients"
+      },
+      {
+        "type": "color_background",
+        "id": "color_gradient_soft",
+        "label": "Soft Green Gradient",
+        "default": "linear-gradient(135deg, rgba(15, 118, 110, 0.04) 0%, rgba(34, 197, 94, 0.04) 100%)"
+      },
+      {
+        "type": "color_background",
+        "id": "color_gradient_luxury",
+        "label": "Luxury Accent Gradient",
+        "default": "linear-gradient(135deg, #0F766E 0%, #0B3D39 100%)"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "font_heading_scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "label": "Heading Scale Size",
+        "default": 115
+      },
+      {
+        "type": "select",
+        "id": "font_heading_weight",
+        "label": "Heading Font Weight",
+        "options": [
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-Bold" },
+          { "value": "700", "label": "Bold" },
+          { "value": "800", "label": "Extra-Bold" }
+        ],
+        "default": "700"
+      },
+      {
+        "type": "header",
+        "content": "Body Text"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "font_body_scale",
+        "min": 90,
+        "max": 115,
+        "step": 5,
+        "unit": "%",
+        "label": "Body Scale Size",
+        "default": 100
+      },
+      {
+        "type": "select",
+        "id": "font_body_weight",
+        "label": "Body Font Weight",
+        "options": [
+          { "value": "300", "label": "Light" },
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" }
+        ],
+        "default": "400"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global Container Layout"
+      },
+      {
+        "type": "range",
+        "id": "container_max_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 40,
+        "unit": "px",
+        "label": "Maximum Grid Width",
+        "default": 1280
+      },
+      {
+        "type": "range",
+        "id": "section_spacing_desktop",
+        "min": 20,
+        "max": 120,
+        "step": 10,
+        "unit": "px",
+        "label": "Section Spacing (Desktop)",
+        "default": 80
+      },
+      {
+        "type": "range",
+        "id": "section_spacing_mobile",
+        "min": 10,
+        "max": 80,
+        "step": 10,
+        "unit": "px",
+        "label": "Section Spacing (Mobile)",
+        "default": 40
+      },
+      {
+        "type": "header",
+        "content": "Cards & Borders"
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "min": 0,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "label": "Card Border Radius",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "card_shadow",
+        "label": "Card Shadow Intensity",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "soft", "label": "Luxury Soft (Subtle)" },
+          { "value": "medium", "label": "Medium Depth" },
+          { "value": "glass", "label": "Glassmorphism Glow" }
+        ],
+        "default": "soft"
+      },
+      {
+        "type": "range",
+        "id": "global_border_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "label": "Global Border Radius",
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button Layout & Styling"
+      },
+      {
+        "type": "select",
+        "id": "button_shape",
+        "label": "Button Shape",
+        "options": [
+          { "value": "sharp", "label": "Sharp Rectangular" },
+          { "value": "rounded", "label": "Gently Rounded" },
+          { "value": "pill", "label": "Luxury Pill Shape" }
+        ],
+        "default": "rounded"
+      },
+      {
+        "type": "select",
+        "id": "button_size",
+        "label": "Button Padding Size",
+        "options": [
+          { "value": "small", "label": "Compact" },
+          { "value": "medium", "label": "Standard Premium" },
+          { "value": "large", "label": "Bold Large (High Conversion)" }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "button_hover_effect",
+        "label": "Hover Micro-Interaction",
+        "options": [
+          { "value": "grow", "label": "Subtle Grow Scale (102%)" },
+          { "value": "shine", "label": "Glass Overlay Shine" },
+          { "value": "color_swap", "label": "Instant Color Transition" }
+        ],
+        "default": "grow"
+      }
+    ]
+  },
+  {
+    "name": "Social Media & Trust",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social & Support Links"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Contact Number (With Country Code)",
+        "default": "919999999999",
+        "info": "Used for instant order support & header icon link"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Default WhatsApp Message",
+        "default": "Hello AYUPAIN, I am interested in ordering the Ayurvedic Pain Relief Oil. Please guide me."
+      },
+      {
+        "type": "header",
+        "content": "Trust Statistics"
+      },
+      {
+        "type": "text",
+        "id": "social_proof_happy_customers",
+        "label": "Happy Customers Counter",
+        "default": "10,000+"
+      },
+      {
+        "type": "text",
+        "id": "social_proof_bottles_delivered",
+        "label": "Bottles Delivered Counter",
+        "default": "50,000+"
+      },
+      {
+        "type": "text",
+        "id": "social_proof_average_rating",
+        "label": "Average Rating",
+        "default": "4.8"
+      }
+    ]
+  }
+]

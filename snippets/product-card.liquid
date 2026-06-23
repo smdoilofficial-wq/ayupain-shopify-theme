@@ -1,0 +1,53 @@
+{%- comment -%}
+  Premium Product Card Component for AYUPAIN
+  Accepts:
+  - product: {Product Object}
+{%- endcomment -%}
+
+<div class="product-card">
+  {%- if product.compare_at_price > product.price -%}
+    {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+    <span class="card-badge-pill">Save {{ savings }}%</span>
+  {%- endif -%}
+
+  <a href="{{ product.url }}" class="product-card-image-box">
+    {%- if product.featured_image != blank -%}
+      <img src="{{ product.featured_image | image_url: width: 360 }}" alt="{{ product.title | escape }}" loading="lazy">
+    {%- else -%}
+      <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=360" alt="AYUPAIN Ayurvedic Product Showcase">
+    {%- endif -%}
+  </a>
+
+  <div class="product-card-content">
+    <h3 class="product-card-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <div class="product-card-rating">
+      {%- render 'icon-rating-stars' -%}
+      <span class="product-card-rating-count">(478 Reviews)</span>
+    </div>
+
+    <div class="product-card-bottom-row">
+      <div class="product-card-price-box">
+        <span class="product-card-price">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card-compare-price">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      <button 
+        type="button" 
+        class="product-card-cta" 
+        aria-label="Add to cart"
+        onclick="addProductToCart({{ product.first_available_variant.id | default: 1 }}, '{{ product.title | escape }}', {{ product.price | divided_by: 100 }}, '{{ product.featured_image | image_url: width: 150 | default: '' }}')"
+      >
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,172 @@
+{%- comment -%}
+  Section 2: Pain Conditions We Help
+{%- endcomment -%}
+
+<section id="conditions" class="section-bg-light" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Targeted Relief' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Conditions We Help You Relieve' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'AYUPAIN™ penetrates deep into muscle tissues and joint structures to relieve inflammation and soothe pain at the root source.' }}</p>
+    </div>
+
+    <!-- Grid of 6 Pain Conditions -->
+    <div class="grid-6-col">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'condition' -%}
+            <div class="condition-card" {{ block.shopify_attributes }}>
+              <div class="condition-icon-box">
+                {%- if block.settings.custom_svg != blank -%}
+                  {{ block.settings.custom_svg }}
+                {%- else -%}
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                {%- endif -%}
+              </div>
+              <h3 class="condition-title">{{ block.settings.title }}</h3>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Fallback Default Items -->
+        <div class="condition-card">
+          <div class="condition-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2v20M5 12h14M8 6l8 12M16 6L8 12"></path>
+            </svg>
+          </div>
+          <h3 class="condition-title">Knee Pain</h3>
+        </div>
+        <div class="condition-card">
+          <div class="condition-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2v7M12 15v7M2 12h7M15 12h7"></path>
+            </svg>
+          </div>
+          <h3 class="condition-title">Joint Pain</h3>
+        </div>
+        <div class="condition-card">
+          <div class="condition-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 4h16v16H4zM12 4v16M4 12h16"></path>
+            </svg>
+          </div>
+          <h3 class="condition-title">Back Pain</h3>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pain Conditions Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Targeted Relief"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Conditions We Help You Relieve"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "AYUPAIN™ penetrates deep into muscle tissues and joint structures to relieve inflammation and soothe pain at the root source."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "condition",
+      "name": "Condition Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Condition Name",
+          "default": "Knee Pain"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Icon",
+          "info": "Paste a raw <svg>...</svg> tag here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pain Conditions",
+      "blocks": [
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Knee Pain"
+          }
+        },
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Joint Pain"
+          }
+        },
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Back Pain"
+          }
+        },
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Neck Pain"
+          }
+        },
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Shoulder Pain"
+          }
+        },
+        {
+          "type": "condition",
+          "settings": {
+            "title": "Muscle Pain"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

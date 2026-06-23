@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Your cart awaits your recovery!",
+        "subtitle": "Need help completing your order? Reach us anytime on WhatsApp support for instant help."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

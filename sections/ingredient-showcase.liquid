@@ -1,0 +1,154 @@
+{%- comment -%}
+  Section 4: Ingredient Showcase - Interactive botanical elements
+{%- endcomment -%}
+
+<section id="ingredients" class="section-bg-gradient" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Pure Actives' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'The Power of Ayurvedic Actives' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'No synthetic chemicals. We harvest five potent bio-active herbs traditionally proven to reduce joint swelling and soothe pain.' }}</p>
+    </div>
+
+    <!-- 5-Column Grid -->
+    <div class="ingredient-grid">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'ingredient' -%}
+            <div class="ingredient-card" {{ block.shopify_attributes }}>
+              <div class="ingredient-image-box">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 150 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+                {%- else -%}
+                  <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=150" alt="Herb" loading="lazy">
+                {%- endif -%}
+              </div>
+              <h3 class="ingredient-name">{{ block.settings.title }}</h3>
+              <span class="ingredient-role">{{ block.settings.role }}</span>
+              <p class="ingredient-desc">{{ block.settings.text }}</p>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Fallback Default Items -->
+        <div class="ingredient-card">
+          <div class="ingredient-image-box">
+            <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=150" alt="Ashwagandha" loading="lazy">
+          </div>
+          <h3 class="ingredient-name">Ashwagandha</h3>
+          <span class="ingredient-role">Anti-inflammatory</span>
+          <p class="ingredient-desc">Reduces swelling and helps restore mobility.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Pure Actives"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "The Power of Ayurvedic Actives"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "No synthetic chemicals. We harvest five potent bio-active herbs traditionally proven to reduce joint swelling and soothe pain."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ingredient Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Ingredient Name",
+          "default": "Ashwagandha"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Ingredient Role / Benefit",
+          "default": "Anti-inflammatory"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Ingredient Description",
+          "default": "Reduces cellular swelling and helps restore mobility."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients Showcase",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Ashwagandha",
+            "role": "Anti-inflammatory",
+            "text": "Reduces cellular swelling and helps rebuild weakened joints."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Nirgundi",
+            "role": "Analgesic Herb",
+            "text": "Known in Ayurveda as the ultimate pain-suppressing herb."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Gandhpura",
+            "role": "Warm Stimulant",
+            "text": "Rich in natural Methyl Salicylate, promoting swift blood circulation."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

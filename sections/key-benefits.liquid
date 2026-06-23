@@ -1,0 +1,245 @@
+{%- comment -%}
+  Section 6: Key Benefits Section
+{%- endcomment -%}
+
+<section id="benefits" class="section-bg-light" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Long-Term Benefits' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Key Health Benefits of AYUPAIN™' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'More than a temporary heat rub. Our oil provides structural nourishment to joints, cartilage, and muscular fibers.' }}</p>
+    </div>
+
+    <div class="benefits-layout">
+      <!-- Left side: Scientific/Botanical Image Showcase -->
+      <div class="benefits-media">
+        {%- if section.settings.showcase_image != blank -%}
+          <img src="{{ section.settings.showcase_image | image_url: width: 600 }}" alt="{{ section.settings.title | escape }}" style="border-radius: var(--card-radius); box-shadow: var(--card-shadow); border: 1px solid rgba(15, 118, 110, 0.08);">
+        {%- else -%}
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=600" alt="Active healthy joints illustration" style="border-radius: var(--card-radius); box-shadow: var(--card-shadow); border: 1px solid rgba(15, 118, 110, 0.08);">
+        {%- endif -%}
+      </div>
+
+      <!-- Right side: Benefits Grid (2x3) -->
+      <div class="benefits-grid">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'benefit' -%}
+              <div class="benefit-item" {{ block.shopify_attributes }}>
+                <div class="benefit-item-header">
+                  {%- if block.settings.custom_svg != blank -%}
+                    {{ block.settings.custom_svg }}
+                  {%- else -%}
+                    <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  {%- endif -%}
+                  <h3 class="benefit-item-title">{{ block.settings.title }}</h3>
+                </div>
+                <p class="benefit-item-text">{{ block.settings.description }}</p>
+              </div>
+          {%- endcase -%}
+        {%- else -%}
+          <!-- Benefit 1: Better Mobility -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <h3 class="benefit-item-title">Better Mobility</h3>
+            </div>
+            <p class="benefit-item-text">Restores knee flexibility, allowing you to walk, climb stairs, and bend with ease.</p>
+          </div>
+
+          <!-- Benefit 2: Relaxed Muscles -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+              <h3 class="benefit-item-title">Relaxed Muscles</h3>
+            </div>
+            <p class="benefit-item-text">Alleviates painful tissue contractions, chronic stiffness, and neck spasms.</p>
+          </div>
+
+          <!-- Benefit 3: Daily Comfort -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <h3 class="benefit-item-title">Daily Comfort</h3>
+            </div>
+            <p class="benefit-item-text">Enjoy sleeping, sitting, and doing household activities without standard nagging aches.</p>
+          </div>
+
+          <!-- Benefit 4: Natural Relief -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+              </svg>
+              <h3 class="benefit-item-title">Natural Relief</h3>
+            </div>
+            <p class="benefit-item-text">Formulated with organic botanicals. Safe for sensitive skin and regular long-term use.</p>
+          </div>
+
+          <!-- Benefit 5: Active Lifestyle -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <h3 class="benefit-item-title">Active Lifestyle</h3>
+            </div>
+            <p class="benefit-item-text">Stay active, exercise, play with kids, and travel without constant brace or belt supports.</p>
+          </div>
+
+          <!-- Benefit 6: Joint Support -->
+          <div class="benefit-item">
+            <div class="benefit-item-header">
+              <svg class="benefit-item-icon icon-svg" style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <h3 class="benefit-item-title">Joint Support</h3>
+            </div>
+            <p class="benefit-item-text">Helps promote natural synovial fluid synthesis to reduce bone friction.</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Key Benefits Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Long-Term Benefits"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Key Health Benefits of AYUPAIN™"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "More than a temporary heat rub. Our oil provides structural nourishment to joints, cartilage, and muscular fibers."
+    },
+    {
+      "type": "image_picker",
+      "id": "showcase_image",
+      "label": "Showcase Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Benefit Title",
+          "default": "Better Mobility"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Benefit Description",
+          "default": "Restores knee flexibility, allowing you to walk, climb stairs, and bend with ease."
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Icon",
+          "info": "Paste a raw <svg>...</svg> tag here to customize the icon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Key Benefits Grid",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Better Mobility",
+            "description": "Restores knee flexibility, allowing you to walk, climb stairs, and bend with ease."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Relaxed Muscles",
+            "description": "Alleviates painful tissue contractions, chronic stiffness, and neck spasms."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Daily Comfort",
+            "description": "Enjoy sleeping, sitting, and doing household activities without standard nagging aches."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Natural Relief",
+            "description": "Formulated with organic botanicals. Safe for sensitive skin and regular long-term use."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Active Lifestyle",
+            "description": "Stay active, exercise, play with kids, and travel without constant brace or belt supports."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Joint Support",
+            "description": "Helps promote natural synovial fluid synthesis to reduce bone friction."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

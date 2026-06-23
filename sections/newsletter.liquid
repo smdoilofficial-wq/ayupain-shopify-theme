@@ -1,0 +1,89 @@
+{%- comment -%}
+  Section 13: Newsletter / Discount Offer
+{%- endcomment -%}
+
+<section id="newsletter" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="newsletter-card">
+      <span class="newsletter-discount-tag">{{ section.settings.offer_tag | default: 'Limited Period Offer' }}</span>
+      
+      <h2 class="newsletter-title">{{ section.settings.title | default: 'Unlock 10% Off Your First Order' }}</h2>
+      
+      <p class="newsletter-desc">
+        {{ section.settings.subtitle | default: 'Join our wellness mailing list. Receive natural relief tips, chronic care advice, and exclusive customer discounts.' }}
+      </p>
+
+      {%- form 'customer', class: 'newsletter-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        
+        <input 
+          type="email" 
+          name="contact[email]" 
+          placeholder="{{ 'general.newsletter.placeholder' | t | default: 'Enter your email address' }}" 
+          required 
+          aria-required="true"
+          autocomplete="email"
+        >
+        
+        <button type="submit">
+          {{ 'general.newsletter.button' | t | default: 'Get Discount' }}
+        </button>
+      {%- endform -%}
+
+      <p class="newsletter-compliance">✓ 100% Secure. We respect your privacy and never send spam.</p>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter Settings",
+  "settings": [
+    {
+      "type": "text",
+      "id": "offer_tag",
+      "label": "Promotion Tag",
+      "default": "Limited Period Offer"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Unlock 10% Off Your First Order"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Join our wellness mailing list. Receive natural relief tips, chronic care advice, and exclusive customer discounts."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter / Promotion Offer"
+    }
+  ]
+}
+{% endschema %}

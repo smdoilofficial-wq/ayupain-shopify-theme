@@ -1,0 +1,212 @@
+{%- comment -%}
+  Section 11: Expert Recommendation / Doctor Endorsement Layout
+{%- endcomment -%}
+
+<section id="expert" class="section-bg-gradient" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container expert-layout">
+    
+    <!-- Doctor Profile Image -->
+    <div class="expert-image-box">
+      {%- if section.settings.expert_image != blank -%}
+        <img src="{{ section.settings.expert_image | image_url: width: 500 }}" alt="{{ section.settings.expert_name | escape }}" loading="lazy">
+      {%- else -%}
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" alt="Dr. Shastri - Senior BAMS Consultant" loading="lazy">
+      {%- endif -%}
+      <div class="expert-badge">
+        <h3 class="expert-name">{{ section.settings.expert_name }}</h3>
+        <p class="expert-title">{{ section.settings.expert_title }}</p>
+      </div>
+    </div>
+
+    <!-- Endorsement Content -->
+    <div class="expert-content">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Medical Endorsement' }}</span>
+      <h2 class="section-title" style="margin-bottom: 20px;">{{ section.settings.section_title }}</h2>
+      
+      <p class="expert-quote">
+        {{ section.settings.quote }}
+      </p>
+
+      <ul class="expert-bullets">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'bullet' -%}
+              <li class="expert-bullet-item" {{ block.shopify_attributes }}>
+                <svg class="expert-bullet-icon icon-svg" style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <div>
+                  <strong>{{ block.settings.title }}:</strong> {{ block.settings.description }}
+                </div>
+              </li>
+          {%- endcase -%}
+        {%- else -%}
+          <li class="expert-bullet-item">
+            <svg class="expert-bullet-icon icon-svg" style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <div>
+              <strong>Pure Potency Extraction:</strong> Uses slow copper-vessel heat methods preserving bio-active alkaloids.
+            </div>
+          </li>
+          <li class="expert-bullet-item">
+            <svg class="expert-bullet-icon icon-svg" style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <div>
+              <strong>Zero Chemicals:</strong> No mineral oils, paraffin, parabens, or synthetic hot capsicum derivatives.
+            </div>
+          </li>
+          <li class="expert-bullet-item">
+            <svg class="expert-bullet-icon icon-svg" style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <div>
+              <strong>Safe for Elderly:</strong> Gentle warm thermal reaction that does not cause chemical skin blisters.
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="expert-signature-row">
+        {%- if section.settings.signature_image != blank -%}
+          <img src="{{ section.settings.signature_image | image_url: height: 60 }}" alt="{{ section.settings.signature_text | escape }}" class="expert-signature-img" style="max-height: 60px; object-fit: contain;">
+        {%- else -%}
+          <div class="expert-signature">{{ section.settings.signature_text }}</div>
+        {%- endif -%}
+        <div style="font-size: 0.85rem; color: var(--color-text-muted);">
+          {{ section.settings.signature_subtext | newline_to_br }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Expert Recommendation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Medical Endorsement"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Recommended by India's Top Ayurvedic Practitioners"
+    },
+    {
+      "type": "image_picker",
+      "id": "expert_image",
+      "label": "Expert Portrait Image"
+    },
+    {
+      "type": "text",
+      "id": "expert_name",
+      "label": "Expert Name & Degree",
+      "default": "Dr. A. K. Shastri, BAMS"
+    },
+    {
+      "type": "text",
+      "id": "expert_title",
+      "label": "Expert Credentials/Title",
+      "default": "Senior Ayurvedic Consultant & Rheumatology Specialist"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Expert Quote Text",
+      "default": "AYUPAIN™ stands out because it doesn't just block pain receptors on the surface. The synergistic properties of Nirgundi with warm Gandhpura active extracts promote long-term cellular blood circulation and reduce joint stiffness naturally."
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_image",
+      "label": "Signature Image"
+    },
+    {
+      "type": "text",
+      "id": "signature_text",
+      "label": "Signature Text Fallback",
+      "default": "Dr. Shastri"
+    },
+    {
+      "type": "textarea",
+      "id": "signature_subtext",
+      "label": "Signature Subtitle / Reg Details",
+      "default": "BAMS, Senior Medical Board Associate\nGovt. Registered Practitioner (Reg. No 48721/A)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Bullet Highlight Title",
+          "default": "Pure Potency Extraction"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Bullet Description",
+          "default": "Uses slow copper-vessel heat methods preserving bio-active alkaloids."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expert Recommendation",
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": {
+            "title": "Pure Potency Extraction",
+            "description": "Uses slow copper-vessel heat methods preserving bio-active alkaloids."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "title": "Zero Chemicals",
+            "description": "No mineral oils, paraffin, parabens, or synthetic hot capsicum derivatives."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "title": "Safe for Elderly",
+            "description": "Gentle warm thermal reaction that does not cause chemical skin blisters."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

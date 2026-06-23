@@ -1,0 +1,168 @@
+{%- comment -%}
+  Section 3: Why AYUPAIN
+{%- endcomment -%}
+
+<section id="why-us" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Science of Recovery' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Why Choose AYUPAIN™' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Crafted with premium active botanicals, here is why AYUPAIN™ is the leading choice for joints & muscles comfort.' }}</p>
+    </div>
+
+    <!-- 3-Column Premium Grid -->
+    <div class="grid-3-col">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'card' -%}
+            <div class="why-card" {{ block.shopify_attributes }}>
+              <div class="why-icon-circle">
+                {%- if block.settings.custom_svg != blank -%}
+                  {{ block.settings.custom_svg }}
+                {%- else -%}
+                  <!-- Fallback default icon -->
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                {%- endif -%}
+              </div>
+              <h3 class="why-title">{{ block.settings.title }}</h3>
+              <p class="why-text">{{ block.settings.text }}</p>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Fallback Default static cards when no blocks are added -->
+        <div class="why-card">
+          <div class="why-icon-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <h3 class="why-title">Fast Absorption</h3>
+          <p class="why-text">Formulated with micro-emulsion technology that absorbs into the epidermal layer in under 60 seconds.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="why-title">Deep Penetration</h3>
+          <p class="why-text">Bypasses surface tissue to deliver therapeutic warmth deep into joint junctions and painful muscle knots.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2a10 10 0 0 0-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 10h-2V7h2v5zm0 4h-2v-2h2v2z"></path>
+            </svg>
+          </div>
+          <h3 class="why-title">Herbal Ingredients</h3>
+          <p class="why-text">100% extract of organic Ashwagandha, Nirgundi, and Gandhpura. Completely free from harmful mineral oils.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Ayupain Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Science of Recovery"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Why Choose AYUPAIN™"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Crafted with premium active botanicals, here is why AYUPAIN™ is the leading choice for joints & muscles comfort."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Fast Absorption"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Card Description",
+          "default": "Formulated with micro-emulsion technology that absorbs into the epidermal layer in under 60 seconds."
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Icon",
+          "info": "Paste a raw <svg>...</svg> tag here to customize the icon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us Grid",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Fast Absorption",
+            "text": "Formulated with micro-emulsion technology that absorbs into the epidermal layer in under 60 seconds."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Deep Penetration",
+            "text": "Bypasses surface tissue to deliver therapeutic warmth deep into joint junctions and painful muscle knots."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Herbal Ingredients",
+            "text": "100% extract of organic Ashwagandha, Nirgundi, and Gandhpura. Completely free from harmful mineral oils."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

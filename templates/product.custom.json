@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "visitor_counter": {
+          "type": "visitor_counter",
+          "settings": {}
+        },
+        "stock_counter": {
+          "type": "stock_counter",
+          "settings": {}
+        },
+        "urgency_timer": {
+          "type": "urgency_timer",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "trust_seals": {
+          "type": "trust_seals",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "visitor_counter",
+        "stock_counter",
+        "urgency_timer",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "trust_seals"
+      ],
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "recommendations": {
+      "type": "key-benefits",
+      "settings": {
+        "tag_text": "Key Benefits",
+        "title": "Why AYUPAIN Works Long-term"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations"
+  ]
+}

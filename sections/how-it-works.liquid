@@ -1,0 +1,164 @@
+{%- comment -%}
+  Section 5: How It Works Timeline
+{%- endcomment -%}
+
+<section id="how-it-works" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Application Guide' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: '3 Steps to Pain-Free Movement' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Simple daily application unlocks deep therapeutic benefits. Here is how to use AYUPAIN™ for optimal results.' }}</p>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'step' -%}
+            <div class="timeline-step" {{ block.shopify_attributes }}>
+              <div class="timeline-badge">{{ block.settings.step_number }}</div>
+              <div class="timeline-step-content">
+                <h3 class="timeline-step-title">{{ block.settings.title }}</h3>
+                <p class="timeline-step-desc">{{ block.settings.description }}</p>
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Step 1 -->
+        <div class="timeline-step">
+          <div class="timeline-badge">01</div>
+          <div class="timeline-step-content">
+            <h3 class="timeline-step-title">Apply</h3>
+            <p class="timeline-step-desc">Pour 5-8 drops of AYUPAIN™ Oil directly onto the affected joint or sore muscle area.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-step">
+          <div class="timeline-badge">02</div>
+          <div class="timeline-step-content">
+            <h3 class="timeline-step-title">Massage</h3>
+            <p class="timeline-step-desc">Gently massage using light circular motions for 2-3 minutes until fully absorbed by the skin.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="timeline-step">
+          <div class="timeline-badge">03</div>
+          <div class="timeline-step-content">
+            <h3 class="timeline-step-title">Feel Relief</h3>
+            <p class="timeline-step-desc">Experience a soothing warm sensation as active botanicals relax the tissues and eliminate stiffness.</p>
+          </div>
+        </div>
+      {%- endfor -%}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Application Guide"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "3 Steps to Pain-Free Movement"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Simple daily application unlocks deep therapeutic benefits. Here is how to use AYUPAIN™ for optimal results."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step Guide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Step Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Apply"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step Description",
+          "default": "Pour 5-8 drops of AYUPAIN™ Oil directly onto the affected joint or sore muscle area."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works Timeline",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "01",
+            "title": "Apply",
+            "description": "Pour 5-8 drops of AYUPAIN™ Oil directly onto the affected joint or sore muscle area."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "02",
+            "title": "Massage",
+            "description": "Gently massage using light circular motions for 2-3 minutes until fully absorbed by the skin."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "03",
+            "title": "Feel Relief",
+            "description": "Experience a soothing warm sensation as active botanicals relax the tissues and eliminate stiffness."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

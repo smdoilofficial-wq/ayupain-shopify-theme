@@ -1,0 +1,117 @@
+{%- comment -%}
+  Section 10: Social Proof Banner
+{%- endcomment -%}
+
+<section id="social-proof" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="stats-banner">
+      <div class="stats-grid">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'stat' -%}
+              <div class="stat-col" {{ block.shopify_attributes }}>
+                <div class="stat-number">{{ block.settings.number }}</div>
+                <div class="stat-label">{{ block.settings.label }}</div>
+              </div>
+          {%- endcase -%}
+        {%- else -%}
+          <!-- Stat 1 -->
+          <div class="stat-col">
+            <div class="stat-number">10,000+</div>
+            <div class="stat-label">Happy Customers Relieved</div>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="stat-col">
+            <div class="stat-number">50,000+</div>
+            <div class="stat-label">Bottles Safely Delivered</div>
+          </div>
+
+          <!-- Stat 3 -->
+          <div class="stat-col">
+            <div class="stat-number">4.8★</div>
+            <div class="stat-label">Average Customer Rating</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Social Proof Section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Stat Number",
+          "default": "10,000+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "default": "Happy Customers Relieved"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Proof Stats",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "10,000+",
+            "label": "Happy Customers Relieved"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "50,000+",
+            "label": "Bottles Safely Delivered"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "4.8★",
+            "label": "Average Customer Rating"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,175 @@
+{%- comment -%}
+  Section 12: FAQ Section Accordions
+{%- endcomment -%}
+
+<section id="faqs" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Got Questions?' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Frequently Asked Questions' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Find quick answers regarding shipping, Cash on Delivery, product application, and safety profiles.' }}</p>
+    </div>
+
+    <!-- FAQ Accordion List -->
+    <div class="faq-container">
+      
+      {%- for block in section.blocks -%}
+        <div class="faq-item" {{ block.shopify_attributes }}>
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>{{ block.settings.question | escape }}</span>
+            <div class="faq-toggle-icon">
+              <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer-panel">
+            <div class="faq-answer-content">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Default Static FAQ items for Mock/Preview -->
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>How fast does AYUPAIN™ relieve pain?</span>
+            <div class="faq-toggle-icon">
+              <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </button>
+          <div class="faq-answer-panel">
+            <div class="faq-answer-content">
+              Most users experience a pleasant soothing warmth and relaxation of muscular stiffness within 5-10 minutes of gentle massage.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>Is Cash on Delivery (COD) available for my pincode?</span>
+            <div class="faq-toggle-icon">
+              <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </button>
+          <div class="faq-answer-panel">
+            <div class="faq-answer-content">
+              Yes! We provide Cash on Delivery (COD) shipping across 26,000+ pincodes in India at no additional delivery charges.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>Are there any side effects or skin burns?</span>
+            <div class="faq-toggle-icon">
+              <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </button>
+          <div class="faq-answer-panel">
+            <div class="faq-answer-content">
+              No. Unlike cheap synthetic sprays that use chemical burning capsicum, AYUPAIN™ uses organic Nirgundi and Gandhpura extracts. It is gentle on the skin, but we recommend doing a small patch test first.
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Got Questions?"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Find quick answers regarding shipping, Cash on Delivery, product application, and safety profiles."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Accordion Question",
+          "default": "How should I store AYUPAIN oil?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Accordion Answer",
+          "default": "Store in a cool dry place, away from direct sunlight. Keep the bottle cap closed tightly after use to prevent camphor evaporation."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How fast does AYUPAIN™ relieve pain?",
+            "answer": "Most users experience a pleasant soothing warmth and relaxation of muscular stiffness within 5-10 minutes of gentle massage."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Cash on Delivery (COD) available for my pincode?",
+            "answer": "Yes! We provide Cash on Delivery (COD) shipping across 26,000+ pincodes in India at no additional delivery charges."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are there any side effects or skin burns?",
+            "answer": "No. Unlike cheap synthetic sprays that use chemical burning capsicum, AYUPAIN™ uses organic Nirgundi and Gandhpura extracts. It is gentle on the skin, but we recommend doing a small patch test first."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

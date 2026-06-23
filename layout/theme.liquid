@@ -1,0 +1,189 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    <!-- Google Fonts: Outfit (luxury headings) and Plus Jakarta Sans (ultra-clean body text) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- CSS Variable Bindings from Shopify Customizer Settings -->
+    <style>
+      :root {
+        --color-primary: {{ settings.color_primary | default: '#0F766E' }};
+        --color-secondary: {{ settings.color_secondary | default: '#22C55E' }};
+        --color-accent: {{ settings.color_accent | default: '#F59E0B' }};
+        --color-success: {{ settings.color_success | default: '#16A34A' }};
+        --color-background: {{ settings.color_background | default: '#FFFFFF' }};
+        --color-background-light: {{ settings.color_background_light | default: '#F8FAFC' }};
+        --color-text: {{ settings.color_text | default: '#111827' }};
+        --color-text-muted: {{ settings.color_text_muted | default: '#4B5563' }};
+        
+        --color-header-bg: {{ settings.color_header_bg | default: '#FFFFFF' }};
+        --color-footer-bg: {{ settings.color_footer_bg | default: '#0B3D39' }};
+        --color-footer-text: {{ settings.color_footer_text | default: '#FFFFFF' }};
+        
+        --color-button-bg: {{ settings.color_button_bg | default: '#0F766E' }};
+        --color-button-text: {{ settings.color_button_text | default: '#FFFFFF' }};
+        --color-button-hover: {{ settings.color_button_hover | default: '#0D5C56' }};
+
+        --font-heading: 'Outfit', sans-serif;
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+        
+        --heading-scale: {{ settings.font_heading_scale | default: 115 | divided_by: 100.0 }};
+        --heading-weight: {{ settings.font_heading_weight | default: '700' }};
+        --body-scale: {{ settings.font_body_scale | default: 100 | divided_by: 100.0 }};
+        --body-weight: {{ settings.font_body_weight | default: '400' }};
+
+        --container-max-width: {{ settings.container_max_width | default: 1280 }}px;
+        --card-radius: {{ settings.card_radius | default: 16 }}px;
+        --global-radius: {{ settings.global_border_radius | default: 8 }}px;
+
+        --section-spacing-desktop: {{ settings.section_spacing_desktop | default: 80 }}px;
+        --section-spacing-mobile: {{ settings.section_spacing_mobile | default: 40 }}px;
+
+        /* Button Settings */
+        {% if settings.button_shape == 'sharp' %}
+          --button-radius: 0px;
+        {% elsif settings.button_shape == 'rounded' %}
+          --button-radius: {{ settings.global_border_radius | default: 8 }}px;
+        {% else %}
+          --button-radius: 9999px;
+        {% endif %}
+
+        {% if settings.button_size == 'small' %}
+          --button-padding: 8px 16px;
+          --button-font-size: 0.875rem;
+        {% elsif settings.button_size == 'large' %}
+          --button-padding: 16px 36px;
+          --button-font-size: 1.125rem;
+        {% else %}
+          --button-padding: 12px 24px;
+          --button-font-size: 1rem;
+        {% endif %}
+
+        /* Card Shadow Settings */
+        {% if settings.card_shadow == 'none' %}
+          --card-shadow: none;
+        {% elsif settings.card_shadow == 'soft' %}
+          --card-shadow: 0 10px 30px -5px rgba(15, 118, 110, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+        {% elsif settings.card_shadow == 'medium' %}
+          --card-shadow: 0 20px 40px -10px rgba(15, 118, 110, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+        {% else %}
+          --card-shadow: 0 8px 32px 0 rgba(15, 118, 110, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        {% endif %}
+
+        /* Animations & Gradients */
+        --gradient-soft: {{ settings.color_gradient_soft | default: 'linear-gradient(135deg, rgba(15, 118, 110, 0.04) 0%, rgba(34, 197, 94, 0.04) 100%)' }};
+        --gradient-luxury: {{ settings.color_gradient_luxury | default: 'linear-gradient(135deg, #0F766E 0%, #0B3D39 100%)' }};
+        
+        --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-body);
+        font-size: calc(1rem * var(--body-scale));
+        font-weight: var(--body-weight);
+        line-height: 1.6;
+        color: var(--color-text);
+        background-color: var(--color-background);
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        font-weight: var(--heading-weight);
+        line-height: 1.25;
+        color: var(--color-text);
+      }
+    </style>
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body>
+    <a class="skip-to-content-link button sr-only" href="#MainContent">
+      Skip to content
+    </a>
+
+    <!-- Sticky Sections -->
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    <!-- Global Cart Drawer Overlay -->
+    {% render 'cart-drawer' %}
+
+    <!-- Sticky Bottom CTA for Mobile Conversions -->
+    <div class="sticky-mobile-cta">
+      <div class="sticky-mobile-cta__container">
+        <div class="sticky-mobile-cta__details">
+          <span class="sticky-mobile-cta__title">AYUPAIN™ Oil (100ml)</span>
+          <div class="sticky-mobile-cta__pricing">
+            <span class="price-current">₹599</span>
+            <span class="price-compare">₹999</span>
+          </div>
+        </div>
+        <button id="StickyMobileAddToCart" class="btn btn-secondary btn-pulse">
+          Order Now (COD)
+        </button>
+      </div>
+    </div>
+
+    <!-- Core Javascript -->
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}'
+      };
+      window.cartStrings = {
+        error: "There was an error adding this to your cart."
+      };
+      {%- if product -%}
+        window.currentProductHandle = '{{ product.handle }}';
+      {%- else -%}
+        window.currentProductHandle = '';
+      {%- endif -%}
+    </script>
+  </body>
+</html>

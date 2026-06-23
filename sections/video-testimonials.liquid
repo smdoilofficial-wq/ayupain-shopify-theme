@@ -1,0 +1,209 @@
+{%- comment -%}
+  Section 8: Video Testimonials
+{%- endcomment -%}
+
+<section id="video-testimonials" class="section-bg-light" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Video Reviews' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Real Stories, Real Relief' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Hear from our customers who reclaimed their mobility, left behind knee bands, and returned to active routines.' }}</p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="video-grid">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'video' -%}
+            <div class="video-card" {{ block.shopify_attributes }}>
+              <div class="video-thumbnail-wrapper">
+                {%- if block.settings.thumbnail != blank -%}
+                  <img src="{{ block.settings.thumbnail | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy">
+                {%- else -%}
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400" alt="Customer Video Testimonial" loading="lazy">
+                {%- endif -%}
+                <div class="video-play-btn" aria-label="Play video review" data-video-url="{{ block.settings.video_url }}">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="video-info">
+                <h3 class="video-customer-name">{{ block.settings.name }}</h3>
+                <span class="video-customer-tag">{{ block.settings.tag }}</span>
+                <p class="video-quote">{{ block.settings.quote }}</p>
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Video 1 -->
+        <div class="video-card">
+          <div class="video-thumbnail-wrapper">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400" alt="Customer Video Testimonial" loading="lazy">
+            <div class="video-play-btn" aria-label="Play video review">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="video-info">
+            <h3 class="video-customer-name">Savitri Devi, Age 62</h3>
+            <span class="video-customer-tag">Verified Knee Pain Relief</span>
+            <p class="video-quote">"After 5 years of struggling with knee arthritis, AYUPAIN™ allowed me to walk to the temple every morning pain-free."</p>
+          </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-card">
+          <div class="video-thumbnail-wrapper">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="Customer Video Testimonial" loading="lazy">
+            <div class="video-play-btn" aria-label="Play video review">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="video-info">
+            <h3 class="video-customer-name">Rajesh Kumar, Age 48</h3>
+            <span class="video-customer-tag">Verified Lower Back Relief</span>
+            <p class="video-quote">"Sitting for 10 hours at my IT job ruined my lower back. Applying this oil twice a day has completely removed the spasms."</p>
+          </div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-card">
+          <div class="video-thumbnail-wrapper">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" alt="Customer Video Testimonial" loading="lazy">
+            <div class="video-play-btn" aria-label="Play video review">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="video-info">
+            <h3 class="video-customer-name">Kiran Bedi, Age 39</h3>
+            <span class="video-customer-tag">Verified Muscle Cramp Relief</span>
+            <p class="video-quote">"As an active runner, calf pull cramps used to halt my practice. AYUPAIN™ is my absolute go-to pre & post-run."</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Video Reviews"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Real Stories, Real Relief"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Hear from our customers who reclaimed their mobility, left behind knee bands, and returned to active routines."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail Image"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video Link",
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name & Age",
+          "default": "Savitri Devi, Age 62"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Verification Tag",
+          "default": "Verified Knee Pain Relief"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Quote",
+          "default": "After 5 years of struggling with knee arthritis, AYUPAIN™ allowed me to walk to the temple every morning pain-free."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Testimonials",
+      "blocks": [
+        {
+          "type": "video",
+          "settings": {
+            "name": "Savitri Devi, Age 62",
+            "tag": "Verified Knee Pain Relief",
+            "quote": "After 5 years of struggling with knee arthritis, AYUPAIN™ allowed me to walk to the temple every morning pain-free."
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "name": "Rajesh Kumar, Age 48",
+            "tag": "Verified Lower Back Relief",
+            "quote": "Sitting for 10 hours at my IT job ruined my lower back. Applying this oil twice a day has completely removed the spasms."
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "name": "Kiran Bedi, Age 39",
+            "tag": "Verified Muscle Cramp Relief",
+            "quote": "As an active runner, calf pull cramps used to halt my practice. AYUPAIN™ is my absolute go-to pre & post-run."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

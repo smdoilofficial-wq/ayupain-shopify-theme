@@ -1,0 +1,11 @@
+# Ignore local preview app files from git repo
+index.html
+preview-app.css
+preview-app.js
+ayupain-premium-theme.zip
+cookies.txt
+
+# System files
+.DS_Store
+Thumbs.db
+*.log

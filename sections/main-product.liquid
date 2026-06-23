@@ -1,0 +1,419 @@
+{%- comment -%}
+  Premium Dynamic Shopify OS 2.0 Product Detail Template Section
+{%- endcomment -%}
+
+<section id="product" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="product-layout">
+      
+      <!-- 1. LEFT COLUMN: Media Gallery -->
+      <div class="product-gallery">
+        <div class="product-main-media" id="ProductMainImage">
+          {%- if product.compare_at_price > product.price -%}
+            {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+            <span class="card-badge-pill" style="left: 20px; top: 20px;">Save {{ savings }}%</span>
+          {%- endif -%}
+          
+          {%- if product.featured_image != blank -%}
+            <img id="ProductMainImageTag" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}">
+          {%- else -%}
+            <!-- Fallback Mock image for local simulation or missing media -->
+            <img id="ProductMainImageTag" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600" alt="AYUPAIN Premium Ayurvedic Product">
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-gallery-thumbs">
+            {%- for image in product.images -%}
+              <div class="product-gallery-thumb-item {% if forloop.first %}active{% endif %}" onclick="document.getElementById('ProductMainImageTag').src='{{ image | image_url: width: 600 }}'; selectThumb(this);">
+                <img src="{{ image | image_url: width: 150 }}" alt="Product Thumb {{ forloop.index }}">
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- 2. RIGHT COLUMN: Dynamic OS 2.0 Buy Box Loop -->
+      <div class="product-details-column">
+        {%- assign product_form_id = 'product-form-' | append: section.id -%}
+        
+        {%- form 'product', product, id: product_form_id, class: 'product-form-container', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              
+
+              {%- when 'title' -%}
+                <h1 class="product-headline" {{ block.shopify_attributes }}>
+                  {{ product.title }}
+                </h1>
+                
+              {%- when 'price' -%}
+                <div class="product-price-row" {{ block.shopify_attributes }}>
+                  <span class="price-current" id="ProductPrice-{{ section.id }}">
+                    {{ product.selected_or_first_available_variant.price | money }}
+                  </span>
+                  
+                  {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+                    <span class="price-compare" id="ComparePrice-{{ section.id }}">
+                      {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                    </span>
+                    
+                    {%- assign diff = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
+                    {%- assign pct = diff | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price -%}
+                    <span class="price-discount-tag" id="DiscountPrice-{{ section.id }}">
+                      (Save {{ pct }}%)
+                    </span>
+                  {%- endif -%}
+                </div>
+                
+              {%- when 'visitor_counter' -%}
+                <div class="visitor-counter" {{ block.shopify_attributes }}>
+                  <span class="visitor-pulse-dot"></span>
+                  <span><strong id="LiveVisitorCount">124</strong> customers are viewing this product right now.</span>
+                </div>
+                
+              {%- when 'stock_counter' -%}
+                <div class="cro-alert-box" {{ block.shopify_attributes }}>
+                  <div class="stock-counter-row" style="color: #B45309;">
+                    <span class="stock-pulse-dot" style="background-color: var(--color-accent);"></span>
+                    <span>Hurry! Only <span id="StockCount">14</span> bottles left in stock!</span>
+                  </div>
+                  <div class="stock-progress-bar" style="background-color: rgba(245, 158, 11, 0.15);">
+                    <div id="StockProgressFill" class="stock-progress-fill" style="width: 28%; background-color: var(--color-accent);"></div>
+                  </div>
+                </div>
+                
+              {%- when 'urgency_timer' -%}
+                <div class="cro-alert-box" style="margin-top: -15px;" {{ block.shopify_attributes }}>
+                  <div class="timer-row">
+                    <span>Special launch price ends in:</span>
+                    <div class="timer-countdown">
+                      <span id="TimerMinutes" class="timer-unit">15</span>
+                      <span>:</span>
+                      <span id="TimerSeconds" class="timer-unit">00</span>
+                    </div>
+                  </div>
+                </div>
+                
+              {%- when 'variant_picker' -%}
+                {%- if product.has_only_default_variant == false -%}
+                  <div class="variant-picker-wrapper" {{ block.shopify_attributes }}>
+                    <span class="bundle-label">Choose Option & Save:</span>
+                    <div class="bundle-selector">
+                      {%- for variant in product.variants -%}
+                        <div class="bundle-option {% if variant.id == product.selected_or_first_available_variant.id %}active{% endif %}" 
+                             data-id="{{ variant.id }}" 
+                             data-price="{{ variant.price | divided_by: 100 }}"
+                             data-title="{{ variant.title | escape }}"
+                             onclick="selectVariant({{ variant.id }}, '{{ variant.title | escape }}', {{ variant.price | divided_by: 100 }}, '{{ variant.compare_at_price | divided_by: 100 }}', this)">
+                          
+                          <div class="bundle-option-left">
+                            <div class="bundle-radio"></div>
+                            <div class="bundle-details">
+                              <span class="bundle-name">{{ variant.title }}</span>
+                              {%- if variant.metafields.custom.bundle_subtitle != blank -%}
+                                <span class="bundle-meta">{{ variant.metafields.custom.bundle_subtitle }}</span>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                          
+                          <div class="bundle-option-right">
+                            <span class="bundle-price">{{ variant.price | money }}</span>
+                            {%- if variant.compare_at_price > variant.price -%}
+                              <span class="bundle-compare-price">{{ variant.compare_at_price | money }}</span>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                    
+                    <!-- Real input submitted inside Form -->
+                    <input type="hidden" name="id" id="SelectedVariantId" value="{{ product.selected_or_first_available_variant.id }}">
+                  </div>
+                {%- else -%}
+                  <!-- Single variant hidden fallback -->
+                  <input type="hidden" name="id" id="SelectedVariantId" value="{{ product.selected_or_first_available_variant.id }}">
+                {%- endif -%}
+                
+              {%- when 'quantity_selector' -%}
+                <div class="qty-selector-wrapper" {{ block.shopify_attributes }}>
+                  <span class="qty-label">Quantity:</span>
+                  <div class="qty-selector">
+                    <button id="QtyMinus" class="qty-btn" type="button" onclick="adjustQtyVal(-1)">-</button>
+                    <input id="ProductQtyInput" name="quantity" class="qty-input" type="text" value="1" readonly>
+                    <button id="QtyPlus" class="qty-btn" type="button" onclick="adjustQtyVal(1)">+</button>
+                  </div>
+                </div>
+                
+              {%- when 'buy_buttons' -%}
+                <div class="product-ctas-row" {{ block.shopify_attributes }}>
+                  <button type="submit" name="add" id="MainAddToCart" class="btn btn-secondary btn-pulse">
+                    Add to Cart & Get Free Gift
+                  </button>
+                  
+                  <button type="button" class="btn btn-primary" onclick="buyNowCheckout()" style="background-color: var(--color-accent); border-color: var(--color-accent); color: #FFFFFF; font-weight: 700;">
+                    Order Now (Cash on Delivery)
+                  </button>
+                </div>
+                
+              {%- when 'description' -%}
+                <div class="product-description" style="margin-top: 20px; font-size: 0.95rem; line-height: 1.6; color: var(--color-text-muted);" {{ block.shopify_attributes }}>
+                  {{ product.description }}
+                </div>
+                
+              {%- when 'trust_seals' -%}
+                <div class="trust-badges-box" {{ block.shopify_attributes }}>
+                  <div class="trust-badge-mini">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                      <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                    <span>Cash on Delivery Available</span>
+                  </div>
+                  <div class="trust-badge-mini">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>7 Days Return Policy</span>
+                  </div>
+                  <div class="trust-badge-mini">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                      <path d="M2 12h20"></path>
+                    </svg>
+                    <span>Free Express Delivery</span>
+                  </div>
+                </div>
+                
+              {%- when 'collapsible_tab' -%}
+                <div class="faq-item" style="margin-top: 15px;" {{ block.shopify_attributes }}>
+                  <button type="button" class="faq-question-btn" onclick="toggleTabPanel(this)">
+                    <span>{{ block.settings.heading | escape }}</span>
+                    <div class="faq-toggle-icon">
+                      <svg class="icon-svg" style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                  </button>
+                  <div class="faq-answer-panel">
+                    <div class="faq-answer-content">
+                      {{ block.settings.content }}
+                    </div>
+                  </div>
+                </div>
+                
+            {%- endcase -%}
+          {%- endfor -%}
+          
+        {%- endform -%}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Standard JS Helpers for Shopify Product Operations -->
+<script>
+  function selectVariant(id, title, price, comparePrice, element) {
+    document.getElementById('SelectedVariantId').value = id;
+    
+    // Toggle active state styling on options list
+    const options = element.parentElement.querySelectorAll('.bundle-option');
+    options.forEach(opt => opt.classList.remove('active'));
+    element.classList.add('active');
+
+    // Update prices on the main product pricing section
+    const currentPriceId = 'ProductPrice-{{ section.id }}';
+    const comparePriceId = 'ComparePrice-{{ section.id }}';
+    const discountPriceId = 'DiscountPrice-{{ section.id }}';
+
+    const pEl = document.getElementById(currentPriceId);
+    if (pEl) pEl.innerText = '₹' + price;
+
+    const cEl = document.getElementById(comparePriceId);
+    if (cEl) {
+      if (comparePrice > price) {
+        cEl.innerText = '₹' + comparePrice;
+        cEl.style.display = 'inline';
+        
+        const dEl = document.getElementById(discountPriceId);
+        if (dEl) {
+          const diff = comparePrice - price;
+          const pct = Math.round((diff / comparePrice) * 100);
+          dEl.innerText = '(Save ' + pct + '%)';
+          dEl.style.display = 'inline';
+        }
+      } else {
+        cEl.style.display = 'none';
+        const dEl = document.getElementById(discountPriceId);
+        if (dEl) dEl.style.display = 'none';
+      }
+    }
+  }
+
+  function adjustQtyVal(amount) {
+    const qtyInput = document.getElementById('ProductQtyInput');
+    if (qtyInput) {
+      let currentVal = parseInt(qtyInput.value, 10);
+      currentVal += amount;
+      if (currentVal < 1) currentVal = 1;
+      qtyInput.value = currentVal;
+    }
+  }
+
+  function toggleTabPanel(button) {
+    const item = button.parentElement;
+    const panel = item.querySelector('.faq-answer-panel');
+    const isActive = item.classList.contains('active');
+
+    // Close other siblings
+    const siblings = item.parentElement.querySelectorAll('.faq-item');
+    siblings.forEach(sib => {
+      sib.classList.remove('active');
+      sib.querySelector('.faq-answer-panel').style.maxHeight = null;
+    });
+
+    if (!isActive) {
+      item.classList.add('active');
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  }
+
+  function buyNowCheckout() {
+    const form = document.getElementById('product-form-{{ section.id }}');
+    if (form) {
+      // Create redirect parameter to checkout directly on submission
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'return_to';
+      input.value = '/checkout';
+      form.appendChild(input);
+      form.submit();
+    }
+  }
+
+  function selectThumb(element) {
+    const thumbs = element.parentElement.querySelectorAll('.product-gallery-thumb-item');
+    thumbs.forEach(t => t.classList.remove('active'));
+    element.classList.add('active');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Details Section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+
+    {
+      "type": "title",
+      "name": "Product Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price details",
+      "limit": 1
+    },
+    {
+      "type": "visitor_counter",
+      "name": "Live Visitor Counter",
+      "limit": 1
+    },
+    {
+      "type": "stock_counter",
+      "name": "Stock Progress Bar",
+      "limit": 1
+    },
+    {
+      "type": "urgency_timer",
+      "name": "Urgency Timer",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Selector Options",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity Counter Selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons (Add & COD)",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Description text",
+      "limit": 1
+    },
+    {
+      "type": "trust_seals",
+      "name": "Trust Seals Badges",
+      "limit": 1
+    },
+
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Tab Accodion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Tab Accordion Title",
+          "default": "Ingredients"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab Accordion Body Content",
+          "default": "<p>Formulated with pure Nirgundi, organic Gandhpura, and active Ashwagandha extracts.</p>"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "title" },
+      { "type": "price" },
+      { "type": "visitor_counter" },
+      { "type": "stock_counter" },
+      { "type": "urgency_timer" },
+      { "type": "variant_picker" },
+      { "type": "quantity_selector" },
+      { "type": "buy_buttons" },
+      { "type": "description" },
+      { "type": "trust_seals" }
+    ]
+  }
+}
+{% endschema %}

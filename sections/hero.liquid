@@ -1,0 +1,138 @@
+{%- comment -%}
+  Premium Hero Section - Segmented Product Detail with Custom Trust Badges
+{%- endcomment -%}
+
+<section id="hero" class="section-bg-gradient" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container hero-section">
+    
+    <!-- Hero Text Panel -->
+    <div class="hero-content">
+      <span class="hero-badge">
+        <span class="logo-dot"></span>
+        {{ section.settings.badge_text | default: 'Premium Ayurvedic Oil' }}
+      </span>
+      
+      <h1 class="hero-title" style="color: var(--color-text);">
+        {{ section.settings.title | default: 'Natural Relief For Joint, Knee & Back Pain' }}
+      </h1>
+      
+      <p class="hero-subtitle">
+        {{ section.settings.subtitle | default: 'Powerful Ayurvedic ingredients designed to support mobility, comfort and daily movement.' }}
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#product" class="btn btn-secondary btn-pulse">
+          {{ section.settings.primary_cta_text | default: 'Order Now (COD)' }}
+        </a>
+        <a href="#why-us" class="btn btn-outline">
+          {{ section.settings.secondary_cta_text | default: 'Learn More' }}
+        </a>
+      </div>
+
+      <!-- Hero Trust Badges snippet -->
+      {%- render 'trust-badges' -%}
+    </div>
+
+    <!-- Hero Media Display Panel -->
+    <div class="hero-media-wrapper">
+      <div class="hero-media-bg-glow"></div>
+      
+      <!-- Interactive Floating Badges -->
+      <div class="float-tag float-tag-1">
+        <span>🍃 Rapid Action</span>
+      </div>
+      <div class="float-tag float-tag-2">
+        <span>✓ Clinically Tested</span>
+      </div>
+
+      {%- if section.settings.hero_image != blank -%}
+        <img 
+          src="{{ section.settings.hero_image | image_url: width: 500 }}" 
+          alt="AYUPAIN Ayurvedic Pain Relief Oil bottle"
+          class="hero-product-image"
+          loading="eager"
+        >
+      {%- else -%}
+        <!-- High-End Bottle Mockup Image fallback -->
+        <img 
+          src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=500" 
+          alt="AYUPAIN Ayurvedic Pain Relief Oil bottle mockup" 
+          class="hero-product-image"
+        >
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Hero Badge Text",
+      "default": "🏆 Ancient Ayurveda, Modern Science"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline Text",
+      "default": "Natural Relief For Joint, Knee & Back Pain"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheadline Text",
+      "default": "Powerful Ayurvedic ingredients designed to support mobility, comfort and daily movement."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary CTA Button",
+      "default": "Order Now (COD Available)"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA Button",
+      "default": "Learn More"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Product Image"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

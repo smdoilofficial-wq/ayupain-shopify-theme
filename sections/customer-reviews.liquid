@@ -1,0 +1,327 @@
+{%- comment -%}
+  Section 9: Customer Reviews
+{%- endcomment -%}
+
+<section id="reviews" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Verified Feedback' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'What 10,000+ Happy Customers Say' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Read unfiltered reviews from verified buyers who experienced deep comfort and long-lasting joint relief.' }}</p>
+    </div>
+
+    <!-- Reviews Dashboard -->
+    <div class="reviews-dashboard">
+      
+      <!-- Average Rating Block -->
+      <div class="reviews-summary-card">
+        <span class="reviews-score">{{ section.settings.average_score }}</span>
+        {%- render 'icon-rating-stars' -%}
+        <span class="verified-text">
+          <svg class="icon-svg verified-badge-inline" style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          {{ section.settings.total_reviews_text }}
+        </span>
+      </div>
+
+      <!-- Rating Progress Bar Columns -->
+      <div class="rating-bars">
+        
+        <!-- 5 Star -->
+        <div class="rating-row">
+          <span style="width: 50px;">5 Star</span>
+          <div class="rating-bar-bg">
+            <div class="rating-bar-fill" style="width: {{ section.settings.star_5_percentage }}%;"></div>
+          </div>
+          <span style="width: 40px; text-align: right;">{{ section.settings.star_5_percentage }}%</span>
+        </div>
+
+        <!-- 4 Star -->
+        <div class="rating-row">
+          <span style="width: 50px;">4 Star</span>
+          <div class="rating-bar-bg">
+            <div class="rating-bar-fill" style="width: {{ section.settings.star_4_percentage }}%;"></div>
+          </div>
+          <span style="width: 40px; text-align: right;">{{ section.settings.star_4_percentage }}%</span>
+        </div>
+
+        <!-- 3 Star -->
+        <div class="rating-row">
+          <span style="width: 50px;">3 Star</span>
+          <div class="rating-bar-bg">
+            <div class="rating-bar-fill" style="width: {{ section.settings.star_3_percentage }}%;"></div>
+          </div>
+          <span style="width: 40px; text-align: right;">{{ section.settings.star_3_percentage }}%</span>
+        </div>
+
+        <!-- 2 Star & 1 Star combined -->
+        <div class="rating-row">
+          <span style="width: 50px;">2 Star</span>
+          <div class="rating-bar-bg">
+            <div class="rating-bar-fill" style="width: {{ section.settings.star_2_percentage }}%;"></div>
+          </div>
+          <span style="width: 40px; text-align: right;">{{ section.settings.star_2_percentage }}%</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Individual Reviews List -->
+    <div class="reviews-list">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'review' -%}
+            <div class="review-item" {{ block.shopify_attributes }}>
+              <div class="review-header">
+                <div class="review-author-info">
+                  <span class="review-author-name">
+                    {{ block.settings.author_name }}
+                    {%- if block.settings.verified -%}
+                      <span class="review-badge-verified">Verified Buyer</span>
+                    {%- endif -%}
+                  </span>
+                  <span class="review-date">{{ block.settings.date }}</span>
+                </div>
+                <div class="review-stars">
+                  {%- for i in (1..block.settings.rating) -%}
+                    <svg class="star-filled icon-svg" style="width: 16px; height: 16px; color: var(--color-accent); display: inline-block; vertical-align: middle;" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  {%- endfor -%}
+                  {%- assign unfilled = 5 | minus: block.settings.rating -%}
+                  {%- if unfilled > 0 -%}
+                    {%- for i in (1..unfilled) -%}
+                      <svg class="star-unfilled icon-svg" style="width: 16px; height: 16px; color: #ddd; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                    {%- endfor -%}
+                  {%- endif -%}
+                </div>
+              </div>
+              <h4 class="review-title">{{ block.settings.title }}</h4>
+              <p class="review-body">{{ block.settings.body }}</p>
+              {%- if block.settings.review_image != blank -%}
+                <div class="review-images-row">
+                  <img class="review-image-thumbnail" src="{{ block.settings.review_image | image_url: width: 150 }}" alt="Customer purchase proof">
+                </div>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+        <!-- Review 1 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author-info">
+              <span class="review-author-name">
+                Gopalakrishnan S. 
+                <span class="review-badge-verified">Verified Buyer</span>
+              </span>
+              <span class="review-date">June 18, 2026</span>
+            </div>
+            {%- render 'icon-rating-stars' -%}
+          </div>
+          <h4 class="review-title">Incredible relief for my knee osteoarthritis!</h4>
+          <p class="review-body">"I was skeptical about trying another pain oil since I tried almost everything available in pharmacies. But AYUPAIN™ actually has some warmth that penetrates into the knee immediately. In just one week of applying, my walking distance has improved without using my knee support brace. Will definitely buy the double pack next time."</p>
+          <div class="review-images-row">
+            <img class="review-image-thumbnail" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150" alt="Customer purchase proof">
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author-info">
+              <span class="review-author-name">
+                Meera Patel
+                <span class="review-badge-verified">Verified Buyer</span>
+              </span>
+              <span class="review-date">June 10, 2026</span>
+            </div>
+            {%- render 'icon-rating-stars' -%}
+          </div>
+          <h4 class="review-title">Excellent for stiff shoulders and cervical neck pain</h4>
+          <p class="review-body">"Due to long hours sitting in front of my computer, my neck and shoulder muscle area becomes hard like a rock by evening. After massaging with AYUPAIN, the tightness dissolves in 10 minutes. The smell is refreshing and herbal, not like those cheap pungent liniments. Highly recommended for office workers."</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Verified Feedback"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What 10,000+ Happy Customers Say"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Read unfiltered reviews from verified buyers who experienced deep comfort and long-lasting joint relief."
+    },
+    {
+      "type": "text",
+      "id": "average_score",
+      "label": "Average Score",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "total_reviews_text",
+      "label": "Total Reviews Count Text",
+      "default": "Based on 478 verified orders"
+    },
+    {
+      "type": "range",
+      "id": "star_5_percentage",
+      "label": "5 Star Percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "star_4_percentage",
+      "label": "4 Star Percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "star_3_percentage",
+      "label": "3 Star Percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "star_2_percentage",
+      "label": "2/1 Star Percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Customer Name",
+          "default": "Gopalakrishnan S."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Buyer Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Review Date",
+          "default": "June 18, 2026"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating (1-5)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review Title",
+          "default": "Incredible relief for my knee osteoarthritis!"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review Body Text",
+          "default": "I was skeptical about trying another pain oil since I tried almost everything available in pharmacies. But AYUPAIN™ actually has some warmth that penetrates into the knee immediately. In just one week of applying, my walking distance has improved without using my knee support brace. Will definitely buy the double pack next time."
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Review Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews Section",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Gopalakrishnan S.",
+            "verified": true,
+            "date": "June 18, 2026",
+            "rating": 5,
+            "title": "Incredible relief for my knee osteoarthritis!",
+            "body": "I was skeptical about trying another pain oil since I tried almost everything available in pharmacies. But AYUPAIN™ actually has some warmth that penetrates into the knee immediately. In just one week of applying, my walking distance has improved without using my knee support brace. Will definitely buy the double pack next time."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Meera Patel",
+            "verified": true,
+            "date": "June 10, 2026",
+            "rating": 5,
+            "title": "Excellent for stiff shoulders and cervical neck pain",
+            "body": "Due to long hours sitting in front of my computer, my neck and shoulder muscle area becomes hard like a rock by evening. After massaging with AYUPAIN, the tightness dissolves in 10 minutes. The smell is refreshing and herbal, not like those cheap pungent liniments. Highly recommended for office workers."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

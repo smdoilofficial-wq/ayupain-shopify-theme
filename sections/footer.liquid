@@ -1,0 +1,134 @@
+{%- comment -%}
+  Premium Clean Footer Component with Trust Certifications and Schema
+{%- endcomment -%}
+
+<footer class="footer-section" style="background-color: {{ section.settings.footer_bg }}; color: {{ section.settings.footer_text }}">
+  <div class="container">
+    
+    <div class="footer-grid">
+      <!-- Column 1: Brand Info -->
+      <div class="footer-col">
+        <div class="footer-logo">
+          <span>AYUPAIN</span><span class="logo-dot"></span>
+        </div>
+        <p class="footer-about-text">
+          {{ section.settings.about_text | default: '100% natural, premium Ayurvedic formulas designed to target joints, neck, back, and muscle pain. Manufactured in GMP-certified facilities.' }}
+        </p>
+        <div class="footer-socials">
+          {%- if section.settings.social_facebook != blank -%}
+            <a href="{{ section.settings.social_facebook }}" class="footer-social-icon" aria-label="Facebook">
+              F
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_instagram != blank -%}
+            <a href="{{ section.settings.social_instagram }}" class="footer-social-icon" aria-label="Instagram">
+              I
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_youtube != blank -%}
+            <a href="{{ section.settings.social_youtube }}" class="footer-social-icon" aria-label="YouTube">
+              Y
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Column 2: Navigation Links -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Shop Relief</h4>
+        <ul class="footer-links-list">
+          <li><a href="#product">AYUPAIN™ Oil (100ml)</a></li>
+          <li><a href="#product">Double Value Pack</a></li>
+          <li><a href="#product">Triple Relief Kit</a></li>
+          <li><a href="#conditions">Conditions We Treat</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Trust & Company -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Company</h4>
+        <ul class="footer-links-list">
+          <li><a href="#why-us">Our Ayurvedic Journey</a></li>
+          <li><a href="#expert">Medical Board</a></li>
+          <li><a href="#reviews">Verified Reviews</a></li>
+          <li><a href="#faqs">FAQ & Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Customer Support -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Help & Trust</h4>
+        <ul class="footer-links-list">
+          <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/policies/terms-of-service">Terms & Conditions</a></li>
+          <li><a href="/policies/refund-policy">Refund & Return Policy</a></li>
+          <li><a href="/policies/shipping-policy">Shipping Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Copyright, Payment Icons & Ayush/GMP Badges -->
+    <div class="footer-bottom-row">
+      <div class="footer-copyright">
+        <p>&copy; {{ 'now' | date: '%Y' }} AYUPAIN™ India. All Rights Reserved. Ayush Approved & FDA Compliant.</p>
+        <p style="font-size: 0.7rem; opacity: 0.6; margin-top: 4px;">Disclaimer: Individual results may vary. Ayurvedic formulations work progressively for long-term health.</p>
+      </div>
+
+      <div class="footer-cards">
+        <!-- Secure Cards Badge Icons -->
+        <span style="font-size: 0.75rem; font-weight: 700; opacity: 0.8; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;">
+          🇮🇳 SECURE PAYMENTS | CASH ON DELIVERY AVAILABLE
+        </span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer Settings",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About Brand Description",
+      "default": "100% natural, premium Ayurvedic formulations designed to target joints, knee, back, and muscle pain. Engineered for rapid absorption and long-lasting relief."
+    },
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Footer Background",
+      "default": "#0B3D39"
+    },
+    {
+      "type": "color",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Social Media Anchors"
+    },
+    {
+      "type": "text",
+      "id": "social_facebook",
+      "label": "Facebook Page Link",
+      "default": "#"
+    },
+    {
+      "type": "text",
+      "id": "social_instagram",
+      "label": "Instagram Handle Link",
+      "default": "#"
+    },
+    {
+      "type": "text",
+      "id": "social_youtube",
+      "label": "YouTube Channel Link",
+      "default": "#"
+    }
+  ]
+}
+{% endschema %}

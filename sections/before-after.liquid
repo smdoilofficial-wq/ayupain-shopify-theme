@@ -1,0 +1,123 @@
+{%- comment -%}
+  Section 7: Before & After Results Transformation Slider
+{%- endcomment -%}
+
+<section id="transformation" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="section-tag">{{ section.settings.tag_text | default: 'Proven Results' }}</span>
+      <h2 class="section-title">{{ section.settings.title | default: 'Visible Reductions in Joint Swelling' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: 'Slide to see the thermographic heat signature mapping before and after applying AYUPAIN™. Red indicates high inflammation; cool blue indicates soothing recovery.' }}</p>
+    </div>
+
+    <!-- Drag Slider Container -->
+    <div class="comparison-container">
+      
+      <!-- Before State Image (Background) -->
+      {%- if section.settings.before_image != blank -%}
+        {%- assign before_img_url = section.settings.before_image | image_url: width: 800 -%}
+      {%- else -%}
+        {%- assign before_img_url = 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=700' -%}
+      {%- endif -%}
+      <div class="comparison-image comparison-image-before" style="background-image: url('{{ before_img_url }}'); filter: grayscale(80%) sepia(20%) hue-rotate(320deg);">
+        <span class="comparison-label comparison-label-before">{{ section.settings.before_label | default: 'Inflamed State' }}</span>
+      </div>
+
+      <!-- After State Image (Foreground Clipped) -->
+      {%- if section.settings.after_image != blank -%}
+        {%- assign after_img_url = section.settings.after_image | image_url: width: 800 -%}
+      {%- else -%}
+        {%- assign after_img_url = 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=700' -%}
+      {%- endif -%}
+      <div class="comparison-image comparison-image-after" style="background-image: url('{{ after_img_url }}');">
+        <span class="comparison-label comparison-label-after">{{ section.settings.after_label | default: 'Relieved State' }}</span>
+      </div>
+
+      <!-- Vertical Slider Handle Line -->
+      <div class="comparison-slider-bar">
+        <div class="comparison-slider-handle">
+          <!-- Double arrow SVGs -->
+          <svg class="icon-svg" style="width: 16px; height: 16px; transform: rotate(90deg);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Before & After Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Section Tag",
+      "default": "Proven Results"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Visible Reductions in Joint Swelling"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Slide to see the thermographic heat signature mapping before and after applying AYUPAIN™. Red indicates high inflammation; cool blue indicates soothing recovery."
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "Before State Image"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "label": "Before Image Label",
+      "default": "Inflamed State"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "After State Image"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "label": "After Image Label",
+      "default": "Relieved State"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before & After Slider"
+    }
+  ]
+}
+{% endschema %}
