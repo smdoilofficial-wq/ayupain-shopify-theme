@@ -15,23 +15,48 @@
             <span class="card-badge-pill" style="left: 20px; top: 20px;">Save {{ savings }}%</span>
           {%- endif -%}
           
-          {%- if product.featured_image != blank -%}
-            <img id="ProductMainImageTag" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}">
-          {%- else -%}
-            <!-- Fallback Mock image for local simulation or missing media -->
-            <img id="ProductMainImageTag" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600" alt="AYUPAIN Premium Ayurvedic Product">
-          {%- endif -%}
+          <div class="product-media-slider" id="ProductMediaSlider">
+            {%- if product.images.size > 0 -%}
+              {%- for image in product.images -%}
+                <div class="product-media-slide" data-index="{{ forloop.index0 }}">
+                  <img src="{{ image | image_url: width: 600 }}" alt="{{ product.title | escape }} - Image {{ forloop.index }}">
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Fallback Mock images for preview simulator -->
+              <div class="product-media-slide" data-index="0">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600" alt="AYUPAIN Premium Ayurvedic Product">
+              </div>
+              <div class="product-media-slide" data-index="1">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600" alt="AYUPAIN Premium Ayurvedic Product Back">
+              </div>
+              <div class="product-media-slide" data-index="2">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600" alt="AYUPAIN Premium Ayurvedic Product Box">
+              </div>
+            {%- endif -%}
+          </div>
         </div>
 
-        {%- if product.images.size > 1 -%}
-          <div class="product-gallery-thumbs">
+        <div class="product-gallery-thumbs">
+          {%- if product.images.size > 0 -%}
             {%- for image in product.images -%}
-              <div class="product-gallery-thumb-item {% if forloop.first %}active{% endif %}" onclick="document.getElementById('ProductMainImageTag').src='{{ image | image_url: width: 600 }}'; selectThumb(this);">
+              <div class="product-gallery-thumb-item {% if forloop.first %}active{% endif %}" onclick="selectThumb(this, {{ forloop.index0 }});">
                 <img src="{{ image | image_url: width: 150 }}" alt="Product Thumb {{ forloop.index }}">
               </div>
             {%- endfor -%}
-          </div>
-        {%- endif -%}
+          {%- else -%}
+            <!-- Fallback Mock thumbnails -->
+            <div class="product-gallery-thumb-item active" onclick="selectThumb(this, 0);">
+              <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150" alt="Product Thumb 1">
+            </div>
+            <div class="product-gallery-thumb-item" onclick="selectThumb(this, 1);">
+              <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150" alt="Product Thumb 2">
+            </div>
+            <div class="product-gallery-thumb-item" onclick="selectThumb(this, 2);">
+              <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150" alt="Product Thumb 3">
+            </div>
+          {%- endif -%}
+        </div>
       </div>
 
       <!-- 2. RIGHT COLUMN: Dynamic OS 2.0 Buy Box Loop -->
@@ -297,11 +322,36 @@
     }
   }
 
-  function selectThumb(element) {
+  function selectThumb(element, index) {
+    const slider = document.getElementById('ProductMediaSlider');
+    if (slider) {
+      const slides = slider.querySelectorAll('.product-media-slide');
+      if (slides[index]) {
+        slider.scrollTo({
+          left: slides[index].offsetLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
     const thumbs = element.parentElement.querySelectorAll('.product-gallery-thumb-item');
     thumbs.forEach(t => t.classList.remove('active'));
     element.classList.add('active');
   }
+
+  // Hook up swiping connection
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('ProductMediaSlider');
+    const thumbs = document.querySelectorAll('.product-gallery-thumb-item');
+    if (slider && thumbs.length > 0) {
+      slider.addEventListener('scroll', () => {
+        const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+        if (thumbs[index] && !thumbs[index].classList.contains('active')) {
+          thumbs.forEach(t => t.classList.remove('active'));
+          thumbs[index].classList.add('active');
+        }
+      });
+    }
+  });
 </script>
 
 {% schema %}

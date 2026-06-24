@@ -5,6 +5,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
+  initMobileMenu();
+  initAjaxSearch();
   initFaqAccordions();
   initBeforeAfterSlider();
   initVisitorCounter();
@@ -610,9 +612,236 @@ function initProductPageOperations() {
 
   // Sticky Mobile ATC
   const stickyMobileAtc = document.getElementById('StickyMobileAddToCart');
+  const stickyCtaWrapper = document.querySelector('.sticky-mobile-cta');
   if (stickyMobileAtc) {
     stickyMobileAtc.addEventListener('click', () => {
       addToCart(currentProductId, currentProductTitle, currentPrice, productImage, 1);
     });
+  }
+
+  // Toggle sticky mobile CTA visibility on scroll
+  if (mainAtc && stickyCtaWrapper) {
+    window.addEventListener('scroll', () => {
+      const mainBtnRect = mainAtc.getBoundingClientRect();
+      // If the main buy button is scrolled out of viewport, show sticky CTA
+      if (mainBtnRect.bottom < 0) {
+        stickyCtaWrapper.classList.add('active');
+      } else {
+        stickyCtaWrapper.classList.remove('active');
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   10. Mobile Menu Drawer & AJAX Predictive Search
+   ========================================================================== */
+
+function initMobileMenu() {
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  const menuDrawer = document.getElementById('MobileMenuDrawer');
+  if (!menuBtn || !menuDrawer) return;
+
+  const closeBtn = menuDrawer.querySelector('.mobile-menu-drawer__close');
+  const overlay = menuDrawer.querySelector('.mobile-menu-drawer__overlay');
+
+  const openDrawer = () => {
+    menuDrawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeDrawer = () => {
+    menuDrawer.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openDrawer();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (overlay) overlay.addEventListener('click', closeDrawer);
+}
+
+function initAjaxSearch() {
+  const searchTriggers = document.querySelectorAll('.js-open-search');
+  const searchDrawer = document.getElementById('SearchDrawer');
+  if (!searchDrawer) return;
+
+  const closeBtn = searchDrawer.querySelector('.search-drawer__close');
+  const overlay = searchDrawer.querySelector('.search-drawer__overlay');
+  const searchInput = document.getElementById('SearchDrawerInput');
+  const loader = searchDrawer.querySelector('.search-drawer__loader');
+  const resultsContainer = document.getElementById('SearchResultsContainer');
+
+  const openSearch = (e) => {
+    if (e) e.preventDefault();
+    searchDrawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput && searchInput.focus(), 250);
+  };
+
+  const closeSearch = () => {
+    searchDrawer.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  searchTriggers.forEach(trigger => trigger.addEventListener('click', openSearch));
+  if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+  if (overlay) overlay.addEventListener('click', closeSearch);
+
+  // Debounce helper
+  let debounceTimeout = null;
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimeout);
+      const query = e.target.value.trim();
+
+      if (query.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="search-drawer__empty-state">
+            <p>Type to search... e.g. "Oil", "Joint Relief", "Nirgundi"</p>
+          </div>
+        `;
+        if (loader) loader.style.display = 'none';
+        return;
+      }
+
+      if (loader) loader.style.display = 'flex';
+
+      debounceTimeout = setTimeout(() => {
+        performSearch(query);
+      }, 300);
+    });
+  }
+
+  function performSearch(query) {
+    if (isRealShopify) {
+      // Real Shopify Predictive Search API
+      fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`)
+        .then(response => {
+          if (!response.ok) throw new Error('Search failed');
+          return response.json();
+        })
+        .then(data => {
+          const products = data.resources.results.products;
+          renderSearchResults(products);
+        })
+        .catch(err => {
+          console.error('AJAX Search error: ', err);
+          renderSearchResults([]);
+        });
+    } else {
+      // Fallback/Simulated Search (for local files preview)
+      setTimeout(() => {
+        const mockProducts = [
+          {
+            title: "AYUPAIN™ Oil (100ml) Pack of 1",
+            url: "#product",
+            price: "59900",
+            price_formatted: "₹599",
+            compare_at_price: "99900",
+            compare_price_formatted: "₹999",
+            image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150"
+          },
+          {
+            title: "AYUPAIN™ Pain Oil - Double Value Pack (200ml)",
+            url: "#product",
+            price: "99900",
+            price_formatted: "₹999",
+            compare_at_price: "199800",
+            compare_price_formatted: "₹1998",
+            image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150"
+          },
+          {
+            title: "AYUPAIN™ Ultimate Relief Trio Pack (300ml)",
+            url: "#product",
+            price: "139900",
+            price_formatted: "₹1399",
+            compare_at_price: "299700",
+            compare_price_formatted: "₹2997",
+            image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150"
+          }
+        ];
+
+        // Filter based on query
+        const filtered = mockProducts.filter(p => 
+          p.title.toLowerCase().includes(query.toLowerCase()) || 
+          query.toLowerCase().includes('oil') ||
+          query.toLowerCase().includes('ayupain')
+        );
+
+        // Convert format to match rendering expectations
+        const formattedResults = filtered.map(p => ({
+          title: p.title,
+          url: p.url,
+          price: p.price_formatted,
+          compare_at_price: p.compare_price_formatted,
+          image: p.image
+        }));
+
+        renderSearchResults(formattedResults);
+      }, 400);
+    }
+  }
+
+  function renderSearchResults(products) {
+    if (loader) loader.style.display = 'none';
+
+    if (!products || products.length === 0) {
+      resultsContainer.innerHTML = `
+        <div class="search-drawer__empty-state">
+          <p>No results found for "${escapeHTML(searchInput.value)}". Try searching for "Oil".</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '<div class="predictive-search-results">';
+    products.forEach(product => {
+      let priceText = product.price;
+      let comparePriceText = product.compare_at_price;
+
+      if (typeof product.price === 'number') {
+        priceText = '₹' + (product.price / 100).toFixed(0);
+      }
+      if (typeof product.compare_at_price === 'number' && product.compare_at_price > 0) {
+        comparePriceText = '₹' + (product.compare_at_price / 100).toFixed(0);
+      } else if (product.compare_at_price === null || product.compare_at_price === undefined) {
+        comparePriceText = '';
+      }
+
+      html += `
+        <a href="${product.url}" class="predictive-search-item">
+          <div class="predictive-search-item__image">
+            <img src="${product.image || 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150'}" alt="${escapeHTML(product.title)}">
+          </div>
+          <div class="predictive-search-item__info">
+            <span class="predictive-search-item__title">${escapeHTML(product.title)}</span>
+            <div class="predictive-search-item__price-row">
+              <span class="predictive-search-item__price">${priceText}</span>
+              ${comparePriceText ? `<span class="predictive-search-item__compare-price">${comparePriceText}</span>` : ''}
+            </div>
+          </div>
+        </a>
+      `;
+    });
+    html += '</div>';
+
+    resultsContainer.innerHTML = html;
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag] || tag)
+    );
   }
 }
