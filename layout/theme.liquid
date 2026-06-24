@@ -129,7 +129,7 @@
       }
     </style>
 
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}&v=1.0.3" type="text/css" media="all">
   </head>
 
   <body>
@@ -167,7 +167,7 @@
     </div>
 
     <!-- Core Javascript -->
-    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'theme.js' | asset_url }}&v=1.0.3" defer="defer"></script>
     <script>
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
